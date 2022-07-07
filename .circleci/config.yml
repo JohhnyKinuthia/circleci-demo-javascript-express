@@ -11,12 +11,12 @@ jobs:
     working_directory: ~/mern-starter
     docker:
       - image: circleci/node:10.16.3
-      - image: mongo:4.2.0
+      - image: mongo
     steps:
       - checkout
       - run:
           name: update-npm
-          command: 'sudo npm install -g npm@5'
+          command: "sudo npm install -g npm@5"
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
@@ -31,7 +31,7 @@ jobs:
           command: npm test
       - run:
           name: code-coverage
-          command: './node_modules/.bin/nyc report --reporter=text-lcov'
+          command: "./node_modules/.bin/nyc report --reporter=text-lcov"
       - store_artifacts:
           path: test-results.xml
           prefix: tests
